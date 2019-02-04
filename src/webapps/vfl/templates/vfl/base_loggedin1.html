@@ -1,0 +1,85 @@
+<!-- This template will be extended by all the other templates except navigation bar -->
+
+{% extends 'vfl/base_logo1.html' %}
+{% load static %}
+{% block info %}
+	<div class="userinfo">
+		<p> Username: <span class="fillin"> {{user.username}} </span></p>
+		<p> Org-Key: <span class="fillin"> ********** {{user.profile.org.orgkey |slice:"10:12"}} </span></p>
+		<a href="{% url 'logout' %}">Log out</a>
+	</div>
+{% endblock %}
+
+{% block belowlogo %}
+<div class="container">
+		<div class="tab-button-outer">
+	    <ul class="nav nav-tabs nav-stacked" id="tab-button">
+	      <li><a class="nav-item nav-link active" id="nav-dbm-tab" data-toggle="tab" href="#dbm" role="tab" aria-controls="dbm" aria-selected="true">Database Manager</a></li>
+	      <li><a class="nav-item nav-link" id="nav-vfl-tab" data-toggle="tab" href="#vfl" role="tab" aria-controls="vfl" aria-selected="false">VFL Dashboard</a></li>
+	      <li><a class="nav-item nav-link" id="nav-ser-tab" data-toggle="tab" href="#ser" role="tab" aria-controls="ser" aria-selected="false">SER Dashboard</a></li>
+	    </ul>
+	    </div>
+
+	<div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+		<div class="tab-pane fade active" id="dbm" role="tabpanel" aria-labelledby="nav-dbm-tab">
+			{% include "vfl/dbm1.html" %}
+		</div>
+		<div class="tab-pane fade" id="vfl" role="tabpanel" aria-labelledby="nav-vfl-tab">
+			{% include "vfl/vfl-db1.html" %}
+		</div>
+		<div class="tab-pane fade" id="ser" role="tabpanel" aria-labelledby="nav-ser-tab">
+			{% include "vfl/ser1.html" %}
+		</div>
+	</div>
+</div>
+
+	<div class="footercontent inner">
+	</div>
+
+{% endblock %}
+
+{% block staticfiles %}
+<!-- importing jquery -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<!-- importing d3 -->
+<script src="http://d3js.org/d3.v2.js?2.9.1"></script>
+<!-- importing other cdns I need -->
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/1.4.0/chroma.min.js"></script>
+<!-- importing recorderjs and other files I need
+for spectrogram -->
+<script src="{% static 'js/recorderjs/recorder.js' %}"></script>
+<script src="{% static 'js/audiobuffer-slice.js' %}"></script>
+<script src="{% static 'js/chroma.js' %}"></script>
+<script src="{% static 'js/spectrogram2.js' %}"></script>
+<script src="{% static 'js/main2.js' %}"></script>
+<script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script>
+	$('.popoverbutton').popover()
+</script>
+<script src="../../static/js/ser2.js"></script>
+<script src="https://unpkg.com/wavesurfer.js"></script>
+<script src="../../static/js/chroma.js"></script>
+<script src="https://d3js.org/d3.v2.js?2.9.1"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/1.4.0/chroma.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+
+<script src="../../static/js/jquery-1.7.1.min.js"></script>
+<script src="../../static/js/jquery.mobile-1.1.0.min.js"></script>
+<script src="../../static/js/jquery.ui.affectbutton.js"></script>
+<script src="../../static/js/jquery.ui.affectbutton.mobile.js"></script>
+<!-- JQuery File Upload -->
+<script src="{% static 'js/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
+<script src="{% static 'js/jquery-file-upload/jquery.iframe-transport.js' %}"></script>
+<script src="{% static 'js/jquery-file-upload/jquery.fileupload.js' %}"></script>
+<script src="{% static 'js/progress-bar-upload.js' %}"></script>
+<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+<script>
+$('div.ui-loader').remove();
+</script>
+<script>
+$('div.ui-mobile').remove();
+</script>
+{% endblock %}

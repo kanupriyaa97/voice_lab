@@ -1,0 +1,124 @@
+<div>
+
+	{% block uploadblock %}
+
+  <form method="post" action="{% url 'clear_database' %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.path }}">
+    <button type="submit" class="btn btn-danger">
+      <span class="glyphicon glyphicon-trash"></span> Clear Database
+    </button>
+  </form>
+  <h1>
+   Database
+ </h1>
+
+ <div class="row">
+   <div class="col-md-9">
+     <div style="margin-bottom: 20px;">
+      <button type="button" class="btn btn-primary js-upload-photos">
+        <span class="glyphicon glyphicon-cloud-upload"></span> Register
+      </button>
+
+      <input id="fileupload" type="file" name="file" multiple
+      style="display: none;"
+      data-url="{% url 'registeraudio' %}"
+      data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+    </div>
+
+    <table id="gallery" class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Your Database</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for audio in audios %}
+        <tr>
+          <td><a href="{{ audio.file.url }}">{{ audio.file.name }}</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Uploading...</h4>
+          </div>
+          <div class="modal-body">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<h1> Retrieve Similar </h1>
+<div class="row">
+ <div class="col-md-9">
+  <form enctype="multipart/form-data" id="sim-form"
+  action = "{% url 'retrievesimilar' %}" method="get">
+  <table>
+    {% for field in retrievesimilarform.visible_fields %}
+    {{field}}
+    {% endfor %}
+  </table>
+  <div style="margin-bottom: 20px;">
+    <button type="submit" class="btn btn-primary">
+      <span class="glyphicon glyphicon-cloud-upload"></span> Upload
+    </button>
+    <button type="submit" class="btn btn-primary" formmethod="post">
+      <span class="glyphicon glyphicon-search"></span> Retrieve Similar
+    </button>
+    {% csrf_token %}
+  </div>
+</form>
+
+<h1> Target Audio </h1>
+{% for audio in target_audio %}
+<div>
+  <audio controls>
+   <source src="{% url 'retrieveaudio' audio.id %}" type="audio/wav">
+   </audio>
+   <button type="button" class="btn btn-warning popoverbutton" data-toggle="popover" title="Predictions:" data-content="{{audio.params}}">...</button> 
+ </div>
+
+ {% endfor %}
+ <h1> Similar Audios </h1>
+ <table id="gallery2" class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Similar Audios</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for audio in similar_audios %}
+    <tr>
+      <td><a href="{{ audio.file.url }}">{{ audio.file.name }}</a></td>
+      <!-- This code is inspired from Bootstrap 3.3.7 modals-->
+       
+      <!-- #### -->
+      <div>
+       <audio controls>
+        <source src="{% url 'retrieveaudio' audio.id %}" type="audio/wav">
+        </audio>
+        <button type="button" class="btn btn-primary popoverbutton" data-toggle="popover" title="Annotations:" data-content="{{audio.params}}">...</button> 
+      </div>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
+
+{% endblock %}
+
+
+</div>

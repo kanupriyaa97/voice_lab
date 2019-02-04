@@ -1,0 +1,95 @@
+{% extends 'vfl/base1.html' %}
+{% load static %}
+{% block divs %}
+
+<div class="info inner">
+	<div class="logo-reg col">
+		<img id='logopic-reg' src="{% static 'images/logo/100.png' %}" alt="VFL-Logo" >
+	</div>
+
+	<div id="about">
+		<h1> A virtual voice analysis dashboard for forensic and medical applications. </h1>
+	</div>
+
+</div>
+
+{% block belowlogo %}
+<div id="wave"> </div>
+
+	<div class="form">
+		<ul class="tab-group">
+			<li class="tab active"><a href="#signup">Sign Up</a></li>
+			<li class="tab"><a href="#login">Log In</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="signup">   
+
+				<form action="{% url 'register' %}" method="post">
+
+					<div class="top-row">
+						{% for field in regform.visible_fields %}
+							<div class="field-wrap">
+								{{field.label_tag}}
+								{{field}}
+								{{field.errors}}
+							</div>
+						{% endfor %}
+					</div>
+
+					<button type="submit" class="button button-block"/>register</button>
+					{% csrf_token %}
+					{% for error in regform.non_field_errors %}
+						<p style = "color:red">
+							{{error}}
+						</p>
+					{% endfor %}
+				</form>
+			</div>
+
+			<div id="login"> 
+
+				<form action="{% url 'login' %}" method="post">
+
+					<div class="field-wrap">
+						{% for field in loginform.visible_fields %}
+							<div class="field-wrap">
+								{{field.label_tag}}
+								{{field}}
+								{{field.errors}}
+							</div>
+						{% endfor %}
+					</div>
+
+					<p class="forgot"><a href="#">Forgot Password?</a></p>
+
+					<button class="button button-block"/>Log In</button>
+					{% csrf_token %}
+					{% for error in loginform.non_field_errors %}
+						<p style = "color:red">
+							{{error}}
+						</p>
+					{% endfor %}
+				</form>
+
+			</div>
+
+		</div><!-- tab-content -->
+
+	</div> <!-- /form -->
+
+	{% endblock %}
+
+
+	{% endblock %}
+
+	{% block staticfiles %}
+	<!-- importing jquery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+	<!-- importing jquery for regform -->
+	<script src="../../static/js/regform.js"></script>
+	<script type="text/javascript" src="../../static/js/siriwave.min.js"></script>
+	<script type="text/javascript" src="../../static/js/createwave.js"></script>
+	<!-- Latest compiled and minified CSS -->
+	{% endblock %}
+
+

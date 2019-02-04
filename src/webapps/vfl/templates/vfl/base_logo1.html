@@ -1,0 +1,24 @@
+<!-- This template will be extended by all the other templates.
+This is a basic template which contains the logo and the division between upper and lower divs where upper div contains
+logo + (user info or info about the app) and lower div contains
+multitude of things depending on the page being visited -->
+
+{% extends 'vfl/base1.html' %}
+{% block divs %}
+
+	<div class="info inner">
+		<div class="logo col">
+			<img id='logopic' src="/static/images/logo/100.png" alt="VFL-Logo" >
+		</div>
+
+		{% block info %}
+		<!-- This place is beside (on the right of) the logo -->
+		{% endblock %}
+
+	</div>
+
+	{% block belowlogo %}
+	<!-- This place is below the logo -->
+	{% endblock %}
+
+{% endblock %}
